@@ -1,0 +1,218 @@
+.my-calendar{
+  width:100%;
+  height:auto;
+  padding: 16px;
+  box-sizing: border-box;
+  background: #32bdda;
+  border-radius: 4px;
+}
+
+/* 第一行取消、确认 */
+.my-calendar .tools{
+  height:16px;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+}
+.my-calendar .tools view{
+  font-family:PingFangSC-Regular;
+  font-weight:400;
+  color:rgba(255,255,255,1);
+  line-height:16px;
+  font-size:16px;
+
+}
+
+/* 第二行 月数选择 */
+.month-select{
+  height: 18px;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top:20px;
+}
+.month-select .icon-wrap{
+  height: 18px;
+  width: 18px;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+.month-select .icon{
+  height:11px;
+  width: 6px;
+}
+.month-select .text-wrap{
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  flex-grow: 1;
+}
+.month-select .text{
+  font-size:18px;
+  font-family:PingFangSC-Semibold;
+  font-weight:600;
+  color:rgba(255,255,255,1);
+  line-height:18px;
+}
+
+/* 第三行 星期显示 */
+.week-show{
+  height:16px;
+  overflow: hidden;
+  margin-top:15px;
+  display: flex;
+  justify-content: space-around;
+}
+.week-show .child{
+  height: 16px;
+  line-height: 16px;
+  width: 14.28%;
+  text-align: center;
+
+  font-family:PingFangSC-Regular;
+  font-weight:400;
+  color:rgba(255,255,255,1);
+  font-size:16px;
+}
+
+/* 第四行 日期显示以及选择 */
+.day-wrap{
+  width:100%;
+  height: auto;
+  margin-top:18px;
+  overflow: hidden;
+}
+.day-wrap .spacing{
+  float: left;
+  width:14.28%;
+  padding-bottom:14.28%;
+}
+.day-wrap .day{
+  float: left;
+  width:14.28%;
+  text-align: center;
+  padding-bottom:14.28%;
+  overflow: hidden;
+  position: relative;
+  margin: 1% 0;
+}
+.day-wrap .day .day-inside-wrap{
+  position: absolute;
+  left:0;top:0;
+  height:100%;
+  width: 100%;
+  border-radius: 100%;
+}
+.day-wrap .day .day-inside{
+  width: 100%;
+  height: auto;
+  position: absolute;
+  /* background: red; */
+  left: 50%;top:50%;
+  transform: translate(-50%, -50%);
+
+  font-size:16px;
+  font-family:PingFangSC-Regular;
+  font-weight:400;
+  color:rgba(255,255,255,1);
+}
+
+
+
+
+
+
+
+
+
+/*为范围时候的样式类*/
+.day-wrap .range{
+  border-radius:0;
+  background: rgba(255,255,255,0.5); 
+}
+.day-wrap .range .day-inside{
+  color:rgba(56,185,212,1);
+}
+
+/*为范围左侧开头时*/
+.day-wrap .range-left{
+  border-radius:0;
+  border-top-left-radius: 50%;
+  border-bottom-left-radius: 50%;
+  background: rgba(255,255,255,0.5); 
+}
+.day-wrap .range-left .day-inside{
+  color:rgba(56,185,212,1);
+}
+
+/*为范围中间时*/
+.day-wrap .range-center{
+  border-radius:100%;
+  background: rgba(255,255,255,0.5); 
+}
+.day-wrap .range-center .day-inside{
+  color:rgba(56,185,212,1);
+}
+
+/*为范围右侧开头时*/
+.day-wrap .range-right{
+  border-radius:0;
+  border-top-right-radius: 50%;
+  border-bottom-right-radius: 50%;
+  background: rgba(255,255,255,0.5); 
+}
+.day-wrap .range-right .day-inside{
+  color:rgba(56,185,212,1);
+}
+
+/*为范围选开始位置时样式*/
+.day-wrap .start{
+  border-top-left-radius: 50%;
+  border-bottom-left-radius: 50%;
+  background: rgba(255,255,255,0.5);
+  position: relative;
+}
+.day-wrap .start .day-inside-wrap{
+  background: #fff;
+}
+.day-wrap .start .day-inside{
+  color:rgba(56,185,212,1);
+}
+
+/*仅选开始位置时样式*/
+.day-wrap .start-only{
+  border-radius: 100%;
+  background: rgba(255,255,255,0.5);
+  position: relative;
+}
+.day-wrap .start-only .day-inside-wrap{
+  background: #fff;
+}
+.day-wrap .start-only .day-inside{
+  color:rgba(56,185,212,1);
+}
+
+/*为范围选结束位置时样式*/
+.day-wrap .stop{
+  border-top-right-radius: 50%;
+  border-bottom-right-radius: 50%;
+  background: rgba(255,255,255,0.5);
+  position: relative;
+}
+.day-wrap .stop .day-inside-wrap{
+  background: #fff;
+}
+.day-wrap .stop .day-inside{
+  color:rgba(56,185,212,1);
+}
+
+
+
+/*为日期单选择时候*/
+.day-wrap .point{
+  background:rgba(255,106,40,1);
+  border-radius: 100%;
+  color: #fff;
+}

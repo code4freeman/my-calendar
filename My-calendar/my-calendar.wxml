@@ -1,0 +1,116 @@
+<!-- 
+    日历组件
+
+    参数：
+        1.useType <String> [range | touch] 指定单选模式还是范围选择模式，默认为range
+        2.confirmText <String> 确认按钮文本
+        3.confirmType <String> [end | button] 指定什么时候触发confirm事件
+        4.date <String> 单选模式下，用于显示选择的日期字符串 如：xxxx-xx-xx
+        5.start <String> 多选模式下，用于显示开始 如：xxxx-xx-xx
+        6.stop <String> 多选模式下，用于显示结束 如：xxxx-xx-xx
+        7.min <String> 最小选择日期 
+        8.max <String> 最大选择日期
+
+    事件:
+        1.cancel 无参传递
+        2.confirm({detail}) 单选模式：{text:"xxxx-xx-xx",time: 111111} 多选模式：{begin：{text:"",time:""}, over: {text:"",time:""}}
+
+ -->
+
+<view class="my-calendar">
+
+  <!-- 顶部标题以及操作按钮显示 -->
+  <view class="tools">
+    <view catchtap='cancel'>取消</view>
+    <view>选择日期</view>
+    <view catchtap='confirm' wx:if="confirmText">{{confirmText}}</view>
+  </view>
+
+  <!-- 日期显示以及切换 -->
+  <view class="month-select">
+    <!-- 月份减 -->
+    <view class="icon-wrap" catchtap='addOrSubMonth' data-status="-">
+      <image class="icon" src="./icon/left.png" catchtap='addOrSubMonth' data-status="-"></image>
+    </view>
+
+    <view class="text-wrap">
+      <!-- 年份减 -->
+      <!-- <view class="icon-wrap" catchtap='addOrSubYear' data-status="-">
+        <image class="icon" src="./icon/left.png" catchtap='addOrSubYear' data-status="-"></image>
+      </view> -->
+      <view class="text">{{nowDate.text}}</view>
+      <!-- 年份加 -->
+      <!-- <view class="icon-wrap" catchtap='addOrSubYear' data-status="+">
+        <image class="icon" src="./icon/right.png" catchtap='addOrSubYear' data-status="+"></image>
+      </view> -->
+    </view>
+    <!-- 月份加 -->
+    <view class="icon-wrap" catchtap='addOrSubMonth' data-status="+">
+      <image class="icon" src="./icon/right.png" catchtap='addOrSubMonth' data-status="+"></image>
+    </view>
+  </view>
+
+  <!-- 星期显示 -->
+  <view class="week-show">
+    <view class="child">日</view>
+    <view class="child">一</view>
+    <view class="child">二</view>
+    <view class="child">三</view>
+    <view class="child">四</view>
+    <view class="child">五</view>
+    <view class="child">六</view>
+  </view>
+
+  <!-- 每月天数量显示框 -->
+  <view class="day-wrap">
+    
+    <!-- 用于占空 -->
+    <view class="spacing" wx:for="{{spacingNum}}"></view>
+
+    <!-- 每个天数显示 --> <!-- class [ point | range | range-left | range-right | start | stop ] -->
+    <!-- 范围选择模式时 -->
+    <block wx:if="{{type == 'range'}}">
+      <block wx:for="{{days}}">
+
+        <block wx:if="{{item.hide}}">
+          <view class="day">
+            <view class="day-inside-wrap">
+              <view class="day-inside" style="color:grey">{{item.date}}</view>
+            </view>
+          </view>
+        </block>
+        <block wx:else>
+          <view class="day {{item.type || ''}}">
+            <view class="day-inside-wrap" catchtap='select' data-index="{{index}}">
+              <view class="day-inside" catchtap='select' data-index="{{index}}">{{item.date}}</view>
+            </view>
+          </view>
+        </block>
+
+      </block>
+    </block>
+    <!-- 单选模式时 -->
+    <block wx:if="{{type == 'touch'}}">
+      <block wx:for="{{days}}">
+
+        <block wx:if="{{item.hide}}">
+          <view class="day">
+            <view class="day-inside-wrap">
+              <view class="day-inside" style="color:grey">{{item.date}}</view>
+            </view>
+          </view>
+        </block>
+        <block wx:else>
+          <view class="day {{item.type || ''}}">
+            <view class="day-inside-wrap" catchtap='touch' data-index="{{index}}">
+              <view class="day-inside" catchtap='touch' data-index="{{index}}">{{item.date}}</view>
+            </view>
+          </view>
+        </block>
+
+      </block>
+    </block>
+    
+
+  </view>
+</view>
