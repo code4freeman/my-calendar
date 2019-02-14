@@ -16,7 +16,7 @@
 |4|date|\<String\>|no|单选模式时用作指定默认选择日期（字符必须为xxxx-xx-xx格式）|||
 |5|start|\<String\>|no|范围选择模式时用作指定默认范围开始日期，必须为xxxx-xx-xx格式字符串|||
 |6|stop|\<String\>|no|范围选择模式时用作指定默认范围结束日期，必须为xxxx-xx-xx格式字符串|||
-|7|min|\<String\>|no|起始选择最小日期限制，必须为xxxx-xx-xx格式字符串或“row”,为row时表示起始范围不得小于今天|row||
+|7|min|\<String\>|no|起始选择最小日期限制，必须为xxxx-xx-xx格式字符串或“now”,为now时表示起始范围不得小于今天|now||
 |8|max|\<String\>|no|起始选择最大日期限制，必须为xxxx-xx-xx格式字符串|||
 
 
