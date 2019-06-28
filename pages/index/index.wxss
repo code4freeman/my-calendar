@@ -1,0 +1,7 @@
+page{
+    padding: 16px;
+    box-sizing: border-box;
+}
+radio-group{
+  margin-bottom: 16px;
+}

@@ -1,7 +1,72 @@
 Component({
 
   properties: {
-    //使用类型，点选还是范围选择[ "touch" | "range" ]
+    /**
+     * @description 背景颜色
+     */
+    background:{
+      type: String,
+      value: "#fff",
+    },
+    /**
+     * @description 是否需要阴影 
+     */
+    isShadow: {
+      type: Boolean,
+      value: true,
+    },
+    /**
+     * @description 是否圆角
+     */
+    isRound: {
+      type: Boolean,
+      value: true
+    },
+    /**
+     * @description 字体颜色
+     */
+    fontColor: {
+      type: String,
+      value: "#000"
+    },
+    /**
+     * @description 日期单选模式下选中的日期颜色
+     */
+    touchColor: {
+      type: String,
+      value: "#409efe"
+    },
+    /**
+     * @description 日期范围选择模式下，范围开始日期的颜色
+     */
+    rangeStartColor: {
+      type: String,
+      value: "#409efe"
+    },
+    /**
+     * @description 日期范围选择模式下，处于范围之间的日期颜色
+     */
+    rangeColor: {
+      type: String,
+      value: "#a0cfff"
+    },
+    /**
+     * @description 日期范围选择模式下，范围结束的日期颜色
+     */
+    rangeEndColor: {
+      type: String,
+      value: "#409efe"
+    },
+    /**
+     * @deacription 标题
+     */
+    title: {
+      type: String,
+      value: "标题"
+    },
+    /**
+     * @description 使用类型（范围选择还是仅选择日期） [ "touch" | "range" ]
+     */
     useType: {
       type: String,
       value: "range",
@@ -11,17 +76,30 @@ Component({
         }
       }
     },
-    //确定按钮文字
+    /**
+     * @description 是否启用年份切换 
+     */
+    isChangeYear: {
+      type: Boolean,
+      value: false
+    },
+    /**
+     * @description  确定按钮文字
+     */
     confirmText: {
       type: String,
       value: "确定"
     },
-    //完成类型，分为选择出发完成 和 点击按钮出发完成
+    /**
+     * @description  完成类型，分为选择出发完成 和 点击按钮出发完成
+     */
     confirmType: {
       type: String,
       value: "button",//可选button和end
     },
-    //起始日期
+    /**
+     * @description  起始日期(useType === 'range'时可用)
+     */
     start: {
       type: String,
       value: "",
@@ -31,7 +109,9 @@ Component({
         }
       }
     },
-    //结束日期
+    /**
+     * @description  结束日期(useType === 'range'时可用)
+     */
     stop: {
       type: String,
       value: "",
@@ -41,27 +121,44 @@ Component({
         }
       }
     },
+    /**
+     * @description 最小选择日期 
+     */
     min: {
       type: String,
       value: ""
     },
+    /**
+     * @description 最大选择日期 
+     */
     max: {
       type: String,
       value: ""
     },
-    //单选模式日期
+    /**
+     * @description 指定可选日期（单选多选都可用）
+     */
+    actives: {
+      type: Array,
+      value: null
+    },
+    /**
+     * @description 单选模式日期
+     */
     date: {
       type: String,
       value: "",
-      observer: function(newV, oldV){
-        if(oldV != ""){
+      observer: function(newV, oldV) {
+        if (oldV != "" && this.properties.useType === "touch") {
           this.initTouch();
         }
       }
     }
+
   },
+
   data: {
-    type: "",//模式，单选或范围选择
+
     begin: 0,//选择开始日期时间戳
     over: 0,//选择结束日期时间戳
     touch: 0,//为单选模式时候选择的日期
@@ -71,25 +168,21 @@ Component({
       text: "",
       Y: 0,
       M: 0
-    }
+    },
+    activesChildType: null//单选模式下，actives传值子元素类型标记
 
   },
-  ready(){
+
+  ready () {
     this.init();
-
   },
+
   methods: {
-    test() {
-      wx.showToast({
-        title: '1234',
-      })
-    },  
-    /*
-    *
-    * 初始化 ============================================================================
-    *
-    **/
-    init(){
+    
+    /**
+     * @description 初始化 
+     */
+    init () {
       //单选模式
       if(this.properties.useType === "touch"){
         this.setData({type: "touch"});
@@ -102,13 +195,12 @@ Component({
       }
     },
 
-    /*
-    *
-    * 单选初始化 ============================================================================
-    *
-    **/
-    initTouch(){
+    /**
+     * @description 单选初始化 
+     */
+    initTouch () {
       if(this.properties.date === ""){
+        this.setData({touch: ""});
         this.setMonth();
       }else{
         if(!/^\d{4}-\d{2}-\d{2}$/.test(this.properties.date)){
@@ -125,12 +217,10 @@ Component({
       this.getMonthData();
     },
 
-    /*
-    *
-    * 范围选择初始化 ============================================================================
-    *
-    **/
-    initRange(){
+    /**
+     * @description 范围选择初始化
+     */
+    initRange () {
       //显示开始日期
       if(this.properties.start === ""){
         this.setData({begin: 0});
@@ -162,20 +252,19 @@ Component({
       this.getMonthData();
     },
 
-    /*
-    * 设置当前显示月份 ============================================================================
-    * @params y <Number> 年份
-    * @params m <number> 月份
-    * @returns null 
-    **/
-    setMonth(y, m){
+    /**
+     * @description 设置当前显示月份
+     * @param {Number} y 年份
+     * @param {Number} m 月份
+     */
+    setMonth (y, m) {
       if(y && m){
         const
           obj = new Date(y, m, 1),
           Y = obj.getFullYear(),
           M = obj.getMonth() + 1 < 10 ? "0" + (obj.getMonth() + 1) : obj.getMonth() + 1;
         this.setData({
-          ["nowDate.text"]: `${Y}年${M}月`,
+          ["nowDate.text"]: `${Y}-${M}`,
           ["nowDate.Y"]: obj.getFullYear(),
           ["nowDate.M"]: obj.getMonth() + 1,
         });
@@ -185,19 +274,17 @@ Component({
           Y = obj.getFullYear(),
           M = obj.getMonth() + 1 < 10 ? "0" + (obj.getMonth() + 1) : obj.getMonth() + 1;
         this.setData({
-          ["nowDate.text"]: `${Y}年${M}月`,
+          ["nowDate.text"]: `${Y}-${M}`,
           ["nowDate.Y"]: obj.getFullYear(),
           ["nowDate.M"]: obj.getMonth() + 1,
         });
       }
     },
 
-    /*
-    *
-    * 月份切换 ============================================================================
-    *
-    **/
-    addOrSubMonth({target:{dataset:{status}}}){
+    /**
+     * @description 月份切换 
+     */
+    addOrSubMonth ({target:{dataset:{status}}}) {
       const 
       Y = this.data.nowDate.Y,
       M = this.data.nowDate.M;
@@ -206,12 +293,12 @@ Component({
           this.setData({
             ["nowDate.Y"]: Y + 1,
             ["nowDate.M"]: 1,
-            ["nowDate.text"]: `${Y + 1}年${1}月`
+            ["nowDate.text"]: `${Y + 1}-${1}`
           });
         }else{
           this.setData({
             ["nowDate.M"]: M + 1,
-            ["nowDate.text"]: `${Y}年${M + 1}月`
+            ["nowDate.text"]: `${Y}-${M + 1}`
           });
         }
       }
@@ -220,12 +307,12 @@ Component({
           this.setData({
             ["nowDate.Y"]: Y - 1,
             ["nowDate.M"]: 12,
-            ["nowDate.text"]: `${Y - 1}年${12}月`
+            ["nowDate.text"]: `${Y - 1}-${12}`
           });
         }else{
           this.setData({
             ["nowDate.M"]: M - 1,
-            ["nowDate.text"]: `${Y}年${M - 1}月`
+            ["nowDate.text"]: `${Y}-${M - 1}`
           });
         }
       }
@@ -233,37 +320,33 @@ Component({
       this.getMonthData();
     },
 
-    /*
-    *
-    * 年份切换 ============================================================================
-    *
-    **/
-    addOrSubYear({target:{dataset:{status}}}){
+    /**
+     * @description 年份切换 
+     */
+    addOrSubYear ({target:{dataset:{status}}}) {
       const 
       Y = this.data.nowDate.Y,
       M = this.data.nowDate.M;
       if (status === "-"){
         this.setData({
           ["nowDate.Y"]: Y - 1,
-          ["nowDate.text"]: `${Y - 1}年${M}月`
+          ["nowDate.text"]: `${Y - 1}-${M}`
         });
       }
       if (status === "+"){
         this.setData({
           ["nowDate.Y"]: Y + 1,
-          ["nowDate.text"]: `${Y + 1}年${M}月`
+          ["nowDate.text"]: `${Y + 1}-${M}`
         });
       }
       //执行获取天数的函数
       this.getMonthData();
     },
 
-    /*
-    *
-    * 获取月份里数据 ============================================================================
-    *
-    **/
-    getMonthData(){
+    /**
+     * @description 获取月份里数据
+     */
+    getMonthData () {
       //获取当前选择的date对象
       const
       Y = this.data.nowDate.Y,
@@ -298,17 +381,21 @@ Component({
 
       //执行设置min-max处理
       this.setMinMax();
+      //执行设置actives处理
+      this.setActives();
       //执行渲染样式
       this.renderStyle();
     },
 
-    /*
-    *
-    * 设置月份里mix-max选择范围 ============================================================================
-    *
-    **/
-    setMinMax(){
-      console.log(this.properties);
+    /**
+     * @description 设置月份里mix-max选择范围 
+     */
+    setMinMax () {
+      console.log(this.properties.actives);
+      if (this.properties.actives && (this.properties.min || this.properties.max)) {
+        this.throwErr("min、max属性不能跟actives属性同时使用");
+        return;
+      }
       if(!this.properties.min && !this.properties.max){
         return;
       }
@@ -372,16 +459,89 @@ Component({
             }
           }
         });
-        this.setData({days: days});
+        this.setData({days: days});//更新days
       }
     },
 
-    /*
-    *
-    * 范围选择回调 ============================================================================
-    *
-    **/
-    select({target:{dataset:{index}}}){
+    /**
+     * @description 设置月份里actives选择范围
+     */
+    setActives () {
+      if (this.properties.useType === "range" && this.properties.actives) {
+        this.throwErr("actives属性只能用于日期单选模式");
+        return;
+      }
+
+      let actives = this.properties.actives;
+      
+      //检查参数，类型不对则退出执行，如果数组为空则全部不允许选择
+      if (!(actives instanceof Array)) return;
+      if (actives.length === 0) {
+        let days = this.data.days;
+        days.forEach(day=>{
+          day.hide = true;
+        });
+        return;
+      }
+
+      //判断actives参数元素类型，并设置data中的标记； ‘xxxx-xx-xx’ or {date: xxxx-xx-xx, price: 123.00} 两种类型
+      {
+        let isString = true, isObj = true;
+        for(let i of actives){
+          if(typeof i === "string"){
+            isObj = false;
+          }
+          if(typeof i === "object"){
+            isString = false;
+          }
+        }
+        if(!isString && !isObj) {
+          this.throwErr("actives传参子元素只能为日期字符串或对象，请参阅相关说明");
+          return;
+        }
+        if(isString) this.setData({activesChildType: "string"});
+        if(isObj) this.setData({activesChildType: "object"});
+      }
+      
+      //actives可能横跨多个月，截取当前所选择月份的actives元素,为后面的算法省时间
+      let _actives = [];
+      actives.forEach(date => {
+        let _arr = [], _Y, _M, _D;
+        if(this.data.activesChildType === "string"){
+          _arr = date.split("-"), _Y = _arr[0], _M = _arr[1], _D = _arr[2];
+        }
+        if(this.data.activesChildType === "object"){
+          _arr = date.date.split("-"), _Y = _arr[0], _M = _arr[1], _D = _arr[2];
+        }
+        if( (_Y == this.data.nowDate.Y) && (_M == this.data.nowDate.M) ){
+          _actives.push({dayNum: _D, text: date.text || ""});
+        }
+      });
+      
+      //设置当月actives 设置当月那些天与actives里的数据匹配，则可以选择，反之不可以选择  
+      let days = this.data.days, daysClone = JSON.parse(JSON.stringify(days));
+      days.forEach(day=>{day.hide = true});//当月所有天都先初始化为不可选择
+      for (let i = 0; i < daysClone.length; i++) {  // ！！！ 这个循环时间复杂度还可以优化，后面再考虑
+
+        for (let j = 0; j < _actives.length; j++) {
+          if (daysClone[i].date == _actives[j].dayNum) {//如果当月某天与_actives中的某天匹配，则将当月某天设置为可以选择，后续循环将不再匹配当月的这一天
+            days[i].hide = false;
+            this.data.activesChildType === "object" && (days[i].text = _actives[j].text);
+            daysClone.splice(i, 1, null);
+            break;
+          }
+        }
+
+      }
+      
+      //更新days
+      this.setData({days: days});
+    },
+
+    /**
+     * @description 范围选择回调
+     */
+    select ({target:{dataset:{index}}}) {
       //选择起点
       if(this.data.begin == 0 || this.data.over != 0){
         this.setData({
@@ -420,12 +580,10 @@ Component({
       }
     },
 
-    /*
-    *
-    * 单选选择回调 ============================================================================
-    *
-    **/
-    touch({target:{dataset:{index}}}){
+    /**
+     * @description 单选选择回调 
+     */
+    touch ({ currentTarget: {dataset: {index}} }) {
       const time = this.data.days[index].time;
       this.setData({touch: time});
       this.renderStyle();
@@ -439,13 +597,11 @@ Component({
       }
     },
 
-    /*
-    *
-    * confirm按钮回调 ============================================================================
-    *
-    **/
-    confirm(){
-      if(this.data.type == "range"){
+    /**
+     * @description confirm按钮回调
+     */
+    confirm () {
+      if(this.properties.type == "range"){
         if(this.data.begin != 0 && this.data.over != 0){
           this.triggerEvent("confirm", {
             begin: {
@@ -459,7 +615,7 @@ Component({
           });
         }
       }
-      if(this.data.type == "touch"){
+      if(this.properties.type == "touch"){
         if(this.data.touch != 0){
           this.triggerEvent("confirm", {
               text: this.timeToString(this.data.touch),
@@ -469,12 +625,10 @@ Component({
       }
     },
 
-    /*
-    *
-    * cancel按钮回调 ============================================================================
-    *
-    **/
-    cancel(){
+    /**
+     * @description cancel按钮回调 
+     */
+    cancel () {
       //防止重新选择后，取消，造成选中不跟随数据
       if(this.properties.useType == "touch"){
         this.initTouch();
@@ -485,39 +639,37 @@ Component({
       this.triggerEvent("cancel");
     },
 
-    /*
-    *
-    * 渲染日历选择后样式的 ============================================================================
-    *
-    **/
-    renderStyle(){
+    /**
+     * @description 渲染日历选择后样式
+     */
+    renderStyle () {
       const 
       begin = this.data.begin,
       over = this.data.over,
       arr = this.data.days;
 
       //范围选择模式时
-      if(this.data.type == "range"){
+      if (this.properties.type == "range") {
         /*仅选择开始的时候*/
-        if(begin != 0 && over == 0){
+        if (begin != 0 && over == 0) {
           for (let i of arr) {
             i.type = "";
-            if(i.time == begin){
+            if (i.time == begin) {
               i.type = "start-only";
             }
           }
           this.setData({ days: arr });
         }
         /*都选择的时候*/
-        if(begin != 0 && over != 0){
+        if (begin != 0 && over != 0) {
           for (let i of arr) {
             //每个日期在开始与结束范围之间的样式
             if (i.time < this.data.over && i.time > this.data.begin) {
               //日期框为星期6时（位置在最右侧）
               if (i.day === 6) {
-                if(i.date === 1){
+                if (i.date === 1) {
                   i.type = "range-center";
-                }else{
+                } else {
                   i.type = "range-right";
                 }
               }
@@ -556,10 +708,10 @@ Component({
             //设置结束样式
             if (i.time == this.data.over) {
               if(i.day === 0){//如果结束为星期天（第一个）
-                i.type = "start-only";
+                i.type = "stop-only";
               }
-              else if (i.day === 6 && i.date == 1) {//如果结束处于月初（1号）
-                i.type = "start-only";
+              else if (i.day === 6 && i.date == 1) {//如果1号为星期六时
+                i.type = "stop-only";
               }else{
                 i.type = "stop";
               }
@@ -569,29 +721,45 @@ Component({
         }
       }
       //单选模式时候
-      if(this.data.type == "touch"){
+      if (this.properties.type == "touch") { 
         arr.forEach(day=>{
           day.type = "";
           if(day.time == this.data.touch){
-            day.type = "point";
+            //actives传参子元素为object的时候，就显示成方形样式（因为要显示价格参数）
+            if(this.data.activesChildType === "object"){
+              day.type = "actives-point";
+            }
+            //否则按照正常的单选选中样式处理
+            else{
+              day.type = "point";
+            }
           }
         });
         this.setData({days: arr});
       }
     },
 
-    /*
-    *
-    * 时间戳转日期字符串 xxxx-xx-xx ============================================================================
-    * @params <String | Number> 时间戳
-    * @returns <String> 日期字符串
-    **/
-    timeToString(time){
-      const date = new Date(Number(time)),
+    /**
+     * @description 时间戳转日期字符串
+     * @param {String|Number} 时间戳
+     * @return {String} 日期时间字符串；如：xxxx-xx-xx
+     */
+    timeToString (time) {
+      const 
+      date = new Date(Number(time)),
       Y = date.getFullYear(),
       M = date.getMonth()+1 < 10 ? "0"+(date.getMonth()+1) : date.getMonth()+1,
       D = date.getDate()<10 ? "0"+date.getDate() : date.getDate();
       return `${Y}-${M}-${D}`;
+    },
+
+    /**
+     * @desciption 抛错函数
+     * @param {String} msg 错误信息
+     */
+    throwErr (msg) {
+      if (!msg) return;
+      console.error("[my-calendar组件报错] " + msg);
     }
 
   }

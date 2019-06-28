@@ -1,10 +1,11 @@
+@import "./icon/iconfont.wxss";
 .my-calendar{
   width:100%;
   height:auto;
   padding: 16px;
   box-sizing: border-box;
   background: #32bdda;
-  border-radius: 4px;
+  /* border-radius: 4px; */
 }
 
 /* 第一行取消、确认 */
@@ -17,7 +18,7 @@
 .my-calendar .tools view{
   font-family:PingFangSC-Regular;
   font-weight:400;
-  color:rgba(255,255,255,1);
+  /* color:rgba(255,255,255,1); */
   line-height:16px;
   font-size:16px;
 
@@ -41,7 +42,8 @@
 }
 .month-select .icon{
   height:11px;
-  width: 6px;
+  font-size: 11px;
+  /* background: red */
 }
 .month-select .text-wrap{
   display: flex;
@@ -53,7 +55,7 @@
   font-size:18px;
   font-family:PingFangSC-Semibold;
   font-weight:600;
-  color:rgba(255,255,255,1);
+  /* color:rgba(255,255,255,1); */
   line-height:18px;
 }
 
@@ -73,7 +75,7 @@
 
   font-family:PingFangSC-Regular;
   font-weight:400;
-  color:rgba(255,255,255,1);
+  /* color:rgba(255,255,255,1); */
   font-size:16px;
 }
 
@@ -109,14 +111,13 @@
   width: 100%;
   height: auto;
   position: absolute;
-  /* background: red; */
   left: 50%;top:50%;
   transform: translate(-50%, -50%);
 
   font-size:16px;
   font-family:PingFangSC-Regular;
   font-weight:400;
-  color:rgba(255,255,255,1);
+  /* color:rgba(255,255,255,1); */
 }
 
 
@@ -130,10 +131,10 @@
 /*为范围时候的样式类*/
 .day-wrap .range{
   border-radius:0;
-  background: rgba(255,255,255,0.5); 
+  /* background: rgba(255,255,255,0.5);  */
 }
 .day-wrap .range .day-inside{
-  color:rgba(56,185,212,1);
+  /* color:rgba(56,185,212,1); */
 }
 
 /*为范围左侧开头时*/
@@ -141,10 +142,10 @@
   border-radius:0;
   border-top-left-radius: 50%;
   border-bottom-left-radius: 50%;
-  background: rgba(255,255,255,0.5); 
+  /* background: rgba(255,255,255,0.5);  */
 }
 .day-wrap .range-left .day-inside{
-  color:rgba(56,185,212,1);
+  /* color:rgba(56,185,212,1); */
 }
 
 /*为范围中间时*/
@@ -161,58 +162,77 @@
   border-radius:0;
   border-top-right-radius: 50%;
   border-bottom-right-radius: 50%;
-  background: rgba(255,255,255,0.5); 
+  /* background: rgba(255,255,255,0.5);  */
 }
 .day-wrap .range-right .day-inside{
-  color:rgba(56,185,212,1);
+  /* color:rgba(56,185,212,1); */
 }
 
 /*为范围选开始位置时样式*/
 .day-wrap .start{
   border-top-left-radius: 50%;
   border-bottom-left-radius: 50%;
-  background: rgba(255,255,255,0.5);
+  /* background: rgba(255,255,255,0.5); */
   position: relative;
 }
 .day-wrap .start .day-inside-wrap{
-  background: #fff;
+  /* background: #fff; */
 }
 .day-wrap .start .day-inside{
-  color:rgba(56,185,212,1);
+  /* color:rgba(56,185,212,1); */
 }
 
 /*仅选开始位置时样式*/
 .day-wrap .start-only{
   border-radius: 100%;
-  background: rgba(255,255,255,0.5);
-  position: relative;
+  /* background: rgba(255,255,255,0.5); */
+  /* position: relative; */
 }
 .day-wrap .start-only .day-inside-wrap{
-  background: #fff;
+  /* background: #fff; */
 }
 .day-wrap .start-only .day-inside{
-  color:rgba(56,185,212,1);
+  /* color:rgba(56,185,212,1); */
 }
 
 /*为范围选结束位置时样式*/
 .day-wrap .stop{
   border-top-right-radius: 50%;
   border-bottom-right-radius: 50%;
-  background: rgba(255,255,255,0.5);
+  /* background: rgba(255,255,255,0.5); */
   position: relative;
 }
 .day-wrap .stop .day-inside-wrap{
-  background: #fff;
+  /* background: #fff; */
 }
 .day-wrap .stop .day-inside{
-  color:rgba(56,185,212,1);
+  /* color:rgba(56,185,212,1); */
 }
 
+/*仅选结束位置时样式*/
+.day-wrap .stop-only{
+  border-radius: 100%;
+  /* background: rgba(255,255,255,0.5); */
+  /* position: relative; */
+}
+.day-wrap .stop-only .day-inside-wrap{
+  /* background: #fff; */
+}
+.day-wrap .stop-only .day-inside{
+  /* color:rgba(56,185,212,1); */
+}
 
 
 /*为日期单选择时候*/
 .day-wrap .point{
-  background:rgba(255,106,40,1);
+  /* background:rgba(255,106,40,1); */
   border-radius: 100%;
-  color: #fff;
+  /* color: #fff; */
+}
+
+/* 指定actives日期选择时 ,在单选模式选中样式基础上改为了方形 */
+.day-wrap .actives-point{
+  /* background:rgba(255,106,40,1); */
+  border-radius: 2px;
+  /* color: #fff; */
 }

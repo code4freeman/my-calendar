@@ -1,0 +1,18 @@
+<radio-group class="radio-group" bindchange="radioChange">
+  <label class="radio" wx:for="{{items}}">
+    <radio value="{{item.name}}" checked="{{item.checked}}"/>{{item.value}}
+  </label>
+</radio-group>
+
+<my-calendar
+title="自定义主题"
+useType="range"
+start="{{start}}"
+stop="{{stop}}"
+bind:confirm="select"
+background="{{theme.bg}}"
+fontColor="{{theme.fontColor}}"
+rangeColor="{{theme.rangeColor}}"
+rangeStartColor="{{theme.rangeStartColor}}"
+rangeEndColor="{{theme.rangeEndColor}}"
+/>
