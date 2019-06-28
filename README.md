@@ -390,7 +390,7 @@ Page({
 ## 属性、事件
 ### 1.通用属性
 |属性|说明|数据类型|默认值|可选值|备注/注意|
-|-|-|-|-|-|-|-|
+|-|-|-|-|-|-|
 |title|标题|String|-|-|-|
 |useType|使用模式|String|"range"|"range"、"touch"|touch为日期单选模式，range为日期范围选择模式|-|
 |isChangeYear|是否启用年份切换|Boolean|false|-|-|
