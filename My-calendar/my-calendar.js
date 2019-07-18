@@ -552,14 +552,23 @@ Component({
       }
       //选择结束点
       else{
-        //当选择的结束日期小于等于开始日期时，则重置开始日期为当前选择  
-        if(this.data.days[index].time <= this.data.begin){
-          this.setData({
-            begin: this.data.days[index].time,
-            over: 0
-          });
-          this.renderStyle();
-          return;
+        //当选择的结束日期小于开始日期时，则重置开始日期为当前选择  
+        if (this.data.days[index].time < this.data.begin) {
+           this.setData({
+              begin: this.data.days[index].time,
+              over: 0
+           });
+           this.renderStyle();
+           return;
+        }
+        //当选择的结束日期等于开始日期时，则表示为当天 
+        if (this.data.days[index].time == this.data.begin) {
+           this.setData({
+              begin: this.data.days[index].time,
+              over: this.data.days[index].time
+           });
+           this.renderStyle();
+           return;
         }
         this.setData({over: this.data.days[index].time});
         this.renderStyle();
