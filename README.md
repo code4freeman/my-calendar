@@ -1,12 +1,12 @@
 # My-calendar 小程序日历组件
 *最近更新于2019/06/26；旧版说明文档<a href="./README/oldReadme.md">点这里</a>*
 
-![图片卡不见请翻墙](./README/img/logo.png)
+![图片看不见请翻墙](./README/img/logo.png)
 
 ## 应用场景展示
 
 ### 1.基本日期选择
-![图片卡不见请翻墙](./README/img/简单日期选择.gif)
+![图片看不见请翻墙](./README/img/简单日期选择.gif)
 <details>
 <summary><img src="./README/img/code.png" valign="middle">查看源码</summary>
 
@@ -50,7 +50,7 @@ Page({
 </details>
 
 ### 2.指定日期选择
-![图片卡不见请翻墙](./README/img/指定日期选择.gif)
+![图片看不见请翻墙](./README/img/指定日期选择.gif)
 <details>
 <summary><img src="./README/img/code.png" valign="middle"/>查看源码</summary>
 
@@ -95,7 +95,7 @@ Page({
 </details>
 
 ### 3.指定日期选择带文本
-![图片卡不见请翻墙](./README/img/指定日期选择带文本.gif)
+![图片看不见请翻墙](./README/img/指定日期选择带文本.gif)
 <details>
 <summary><img src="./README/img/code.png" valign="middle"/>查看源码</summary>
 
@@ -144,7 +144,7 @@ Page({
 </details>
 
 ### 4.指定范围日期选择
-![图片卡不见请翻墙](./README/img/指定范围日期选择.gif)
+![图片看不见请翻墙](./README/img/指定范围日期选择.gif)
 <details>
 <summary><img src="./README/img/code.png" valign="middle">查看源码</summary>
 
@@ -194,7 +194,7 @@ Page({
 
 
 ### 5.基本日期范围选择
-![图片卡不见请翻墙](./README/img/基本日期范围选择.gif)
+![图片看不见请翻墙](./README/img/基本日期范围选择.gif)
 <details>
 <summary><img src="./README/img/code.png" valign="middle">查看源码</summary>
 
@@ -244,7 +244,7 @@ Page({
 </details>
 
 ### 6.指定范围日期范围选择
-![图片卡不见请翻墙](./README/img/指定范围日期范围选择.gif)
+![图片看不见请翻墙](./README/img/指定范围日期范围选择.gif)
 <details>
 <summary><img src="./README/img/code.png" valign="middle"/>查看源码</summary>
 
@@ -296,7 +296,7 @@ Page({
 </details>
 
 ### 7.自定义主题
-![图片卡不见请翻墙](./README/img/自定义主题.gif)
+![图片看不见请翻墙](./README/img/自定义主题.gif)
 
 *^-^我不是ui，配色大家随便看就行*
 <details>
