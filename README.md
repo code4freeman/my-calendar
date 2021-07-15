@@ -1,5 +1,5 @@
 # My-calendar 小程序日历组件
-*最近更新于2019/06/26；旧版说明文档<a href="./README/oldReadme.md">点这里</a>*
+若看不见展示图片请[点击这里](https://gitee.com/lilin123/my-calendar)
 
 ![图片看不见请翻墙](./README/img/logo.png)
 
